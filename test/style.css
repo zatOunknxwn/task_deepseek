@@ -1,0 +1,17 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+ul{
+    list-style-type: none;
+    justify-content: flex-start;
+}
+
+li{
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+}
+
