@@ -3,20 +3,18 @@ const AddButton = document.getElementById("AddButton");
 const TaskList = document.getElementById("TaskList");
 
 
-
 AddButton.addEventListener('click', function(){
-  if(InputText.type == 'text' && InputText.value != ''){
+  if(InputText.value != ''){
     const li_text = document.createElement('li')
     const delete_button = document.createElement('button');
     const checkbox = document.createElement('input')
-
+    
     // const listContainer = document.createElement('div')
     // listContainer.innerHTML = "<input type='checkbox' id='Mycheckbox'>" + InputText.value + "  <button>Удалить</button>"
-
+    
     delete_button.innerText = 'удалить';
 
     checkbox.type = "checkbox";
-    checkbox.id = "mycheckbox";
 
     TaskList.appendChild(checkbox);
     TaskList.appendChild(li_text);
@@ -27,14 +25,17 @@ AddButton.addEventListener('click', function(){
     // TaskList.appendChild(listContainer);
 
     // console.log(checkbox.value);
-    console.log(checkbox.checked);
   
-    if (checkbox.checked){
-      li_text.style.textDecoration = 'line-through';
-    }
-    else{
-      li_text.style.textDecoration = 'none';
-    }
+    // if (TaskList.checked){
+    //   li_text.style.textDecoration = 'line-through';
+    // }
+    // else{
+    //   li_text.style.textDecoration = 'none';
+    // }
+
+    checkbox.addEventListener('change', function(){
+      li_text.classList.toggle("complited");
+    })
 
     delete_button.addEventListener('click', function(){
       li_text.remove();
