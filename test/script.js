@@ -1,50 +1,63 @@
-const InputText = document.getElementById("InputText");
-const AddButton = document.getElementById("AddButton");
-const TaskList = document.getElementById("TaskList");
+const taskname = document.getElementById("taskname");
+const inputTask = document.getElementById("InputTask");
+const addBtn = document.getElementById("addBtn");
+const tasklist = document.getElementById("taskList");
 
+function TaskText(text) {
+  const li = document.createElement("li");
+  li.className = "li_text";
 
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.className = "checkbox";
+  checkbox.addEventListener("change", () => {
+    li.classList.toggle("completed");
+  });
 
-AddButton.addEventListener('click', function(){
-  if(InputText.type == 'text' && InputText.value != ''){
-    const li_text = document.createElement('li')
-    const delete_button = document.createElement('button');
-    const checkbox = document.createElement('input')
+  const red_prio = document.createElement("button");
+  const blue_prio = document.createElement("button");
+  const green_prio = document.createElement("button");
+  const del_prio = document.createElement("button");
 
-    // const listContainer = document.createElement('div')
-    // listContainer.innerHTML = "<input type='checkbox' id='Mycheckbox'>" + InputText.value + "  <button>Удалить</button>"
+  const delete_button = document.createElement("button");
+  delete_button.innerText = "Удалить";
+  delete_button.className = "del_btn";
+  delete_button.addEventListener("click", function () {
+    tasklist.removeChild(li);
+  });
 
-    delete_button.innerText = 'удалить';
+  const span = document.createElement("span");
+  span.className = "text";
+  span.textContent = text;
 
-    checkbox.type = "checkbox";
-    checkbox.id = "mycheckbox";
+  li.appendChild(checkbox);
+  li.appendChild(span);
+  li.appendChild(delete_button);
+  tasklist.appendChild(li);
+}
 
-    TaskList.appendChild(checkbox);
-    TaskList.appendChild(li_text);
-    TaskList.appendChild(delete_button);
-    
-    li_text.innerHTML = InputText.value;
-    
-    // TaskList.appendChild(listContainer);
-
-    // console.log(checkbox.value);
-    console.log(checkbox.checked);
-  
-    if (checkbox.checked){
-      li_text.style.textDecoration = 'line-through';
-    }
-    else{
-      li_text.style.textDecoration = 'none';
-    }
-
-    delete_button.addEventListener('click', function(){
-      li_text.remove();
-      delete_button.remove();
-      checkbox.remove();
-
-      // if (delete_button.target.tagName === "BUTTON"){
-      //   listContainer.remove();
-      // }
-    })
-    // console.log(li_text.innerHTML);
+addBtn.addEventListener("click", function () {
+  const main_text = inputTask.value;
+  if (main_text !== "") {
+    TaskText(main_text);
   }
-})
+});
+
+inputTask.addEventListener("keyup", function (event) {
+  if (event.key === "Enter") {
+    addBtn.click();
+  }
+});
+
+// Загружаем сохранённый текст при загрузке страницы
+window.addEventListener("DOMContentLoaded", () => {
+  const savedText = localStorage.getItem("savedInputText");
+  if (savedText) {
+    taskname.value = savedText;
+  }
+});
+
+// Сохраняем текст при каждом изменении input
+taskname.addEventListener("input", () => {
+  localStorage.setItem("savedInputText", taskname.value);
+});
